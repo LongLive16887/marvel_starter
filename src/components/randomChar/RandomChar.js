@@ -1,5 +1,5 @@
 import { useState,useEffect } from 'react';
-import MarvelService from '../../services/MarvelService';
+import useMarvelService from '../../services/MarvelService';
 import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
 import Spinner from '../spinner/Spinner';
@@ -10,7 +10,7 @@ const RandomChar = (props) => {
     const [loading,setLoading] = useState(true);
     const [error,setError] = useState(false);
 
-    const marvelService  = new MarvelService();
+    const marvelService  = useMarvelService();
 
     useEffect(() => {
         updateChar();
