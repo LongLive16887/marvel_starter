@@ -1,9 +1,12 @@
 import { useState,useEffect } from 'react';
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
-import Skeleton from "../skeleton/Skeleton";
 import useMarvelService from '../../services/MarvelService';
 import PropTypes from 'prop-types'; 
+import Skeleton from "../skeleton/Skeleton";
+import { NavLink } from 'react-router-dom';
+import getIdfromPath from "../../services/getIdFromPath";
+
 
 import './charInfo.scss';
 
@@ -60,6 +63,7 @@ const View = ({char}) => {
         imgStyle = {'objectFit' : 'contain'};
     }
 
+
     return(
         <>
             <div className="char__basics">
@@ -82,14 +86,17 @@ const View = ({char}) => {
             <div className="char__comics">Comics:</div>
             <ul className="char__comics-list">
                 {comics.length > 0 ? null : <ErrorMessage/>}
-
+                
                 {
                     comics.map((item,i) => {
                         // eslint-disable-next-line
                         if(i > 9) return;
+                        let itemId = getIdfromPath(item.resourceURI) 
                         return (
                             <li key = {i} className="char__comics-item">
-                                {item.name}
+                                <NavLink to = {`/comics/${itemId}`}>
+                                    {item.name}
+                                </NavLink>
                             </li>
                         )}) 
                 }
